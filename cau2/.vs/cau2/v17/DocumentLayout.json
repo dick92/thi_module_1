@@ -1,0 +1,45 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\thithuchanh\\cau2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ADBB0AC4-2B1C-402C-8C16-2E57FB1DD0E0}|cau2\\cau2.csproj|d:\\thithuchanh\\cau2\\cau2\\htmlpage1.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ADBB0AC4-2B1C-402C-8C16-2E57FB1DD0E0}|cau2\\cau2.csproj|solutionrelative:cau2\\htmlpage1.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 324,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{007a3a6b-b5b2-454d-a2bd-cf929f989be2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HtmlPage1.html",
+              "DocumentMoniker": "D:\\thithuchanh\\cau2\\cau2\\HtmlPage1.html",
+              "RelativeDocumentMoniker": "cau2\\HtmlPage1.html",
+              "ToolTip": "D:\\thithuchanh\\cau2\\cau2\\HtmlPage1.html",
+              "RelativeToolTip": "cau2\\HtmlPage1.html",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAACEAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-05-30T13:35:41.469Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

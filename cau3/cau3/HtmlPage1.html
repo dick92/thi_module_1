@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>sổ tiết kiệm</title>
+    <style>
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 5px;
+            width: 300px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quản Lý Sổ Tiết Kiệm</h1>
+    <form id="form-add">
+        <h2>Thêm Sổ Tiết Kiệm</h2>
+        <label for="maSo">Mã sổ:</label>
+        <input type="text" id="maSo" maxlength="5" required>
+
+        <label for="loaiTietKiem">Loại tiết kiệm:</label>
+        <input type="text" id="loaiTietKiem" maxlength="10" required>
+
+        <label for="hoTenKhachHang">Họ tên khách hàng:</label>
+        <input type="text" id="hoTenKhachHang" maxlength="30" required>
+
+        <label for="chungMinhNhanDan">Chứng minh nhân dân:</label>
+        <input type="number" id="chungMinhNhanDan" required>
+
+        <label for="ngayMoSo">Ngày mở sổ:</label>
+        <input type="date" id="ngayMoSo" required>
+
+        <label for="soTienGui">Số tiền gửi:</label>
+        <input type="number" id="soTienGui" required>
+
+        <button type="submit">Thêm Sổ Tiết Kiệm</button>
+    </form>
+
+    <form id="form-delete">
+        <h2>Xóa Sổ Tiết Kiệm</h2>
+        <label for="maSoDelete">Mã sổ:</label>
+        <input type="text" id="maSoDelete" maxlength="5" required>
+
+        <button type="submit">Xóa Sổ Tiết Kiệm</button>
+    </form>
+
+    <div id="message"></div>
+    <pre id="output"></pre>
+
+    <script>
+        class SoTietKiem {
+            constructor(maSo, loaiTietKiem, hoTenKhachHang, chungMinhNhanDan, ngayMoSo, soTienGui) {
+                this.maSo = maSo;
+                this.loaiTietKiem = loaiTietKiem;
+                this.hoTenKhachHang = hoTenKhachHang;
+                this.chungMinhNhanDan = chungMinhNhanDan;
+                this.ngayMoSo = ngayMoSo;
+                this.soTienGui = soTienGui;
+            }
+
+            toString() {
+                return `Sổ Tiết Kiệm:
+Mã sổ: ${this.maSo}
+Loại tiết kiệm: ${this.loaiTietKiem}
+Họ tên khách hàng: ${this.hoTenKhachHang}
+Chứng minh nhân dân: ${this.chungMinhNhanDan}
+Ngày mở sổ: ${this.ngayMoSo}
+Số tiền gửi: ${this.soTienGui}`;
+            }
+        }
+
+        const soTietKiemList = [];
+
+        document.getElementById('form-add').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const maSo = document.getElementById('maSo').value;
+            const loaiTietKiem = document.getElementById('loaiTietKiem').value;
+            const hoTenKhachHang = document.getElementById('hoTenKhachHang').value;
+            const chungMinhNhanDan = document.getElementById('chungMinhNhanDan').value;
+            const ngayMoSo = document.getElementById('ngayMoSo').value;
+            const soTienGui = document.getElementById('soTienGui').value;
+
+            // Validate dữ liệu nhập vào
+            if (maSo.length > 5 || loaiTietKiem.length > 10 || hoTenKhachHang.length > 30 || isNaN(chungMinhNhanDan) || isNaN(soTienGui)) {
+                document.getElementById('message').textContent = 'Dữ liệu nhập vào không hợp lệ. Vui lòng nhập lại.';
+                document.getElementById('message').className = 'error';
+                return;
+            }
+
+            // Kiểm tra mã sổ có tồn tại hay không
+            const exists = soTietKiemList.some(stk => stk.maSo === maSo);
+            if (exists) {
+                document.getElementById('message').textContent = 'Mã sổ đã tồn tại. Vui lòng nhập mã sổ khác.';
+                document.getElementById('message').className = 'error';
+                return;
+            }
+
+            // Tạo đối tượng SoTietKiem mới
+            const soTietKiem = new SoTietKiem(maSo, loaiTietKiem, hoTenKhachHang, chungMinhNhanDan, ngayMoSo, soTienGui);
+            soTietKiemList.push(soTietKiem);
+
+            // Hiển thị thông báo thành công và thông tin sổ tiết kiệm mới thêm
+            document.getElementById('message').textContent = 'Thêm sổ tiết kiệm thành công!';
+            document.getElementById('message').className = '';
+            document.getElementById('output').textContent = soTietKiem.toString();
+
+            // Reset form
+            document.getElementById('form-add').reset();
+        });
+
+        document.getElementById('form-delete').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const maSoDelete = document.getElementById('maSoDelete').value;
+
+            // Tìm chỉ số của sổ tiết kiệm trong mảng
+            const index = soTietKiemList.findIndex(stk => stk.maSo === maSoDelete);
+            if (index === -1) {
+                document.getElementById('message').textContent = 'Mã sổ không tồn tại. Vui lòng nhập mã sổ khác.';
+                document.getElementById('message').className = 'error';
+                return;
+            }
+
+            // Xác nhận trước khi xóa
+            const confirmDelete = confirm('Bạn có chắc chắn muốn xóa sổ tiết kiệm này không?');
+            if (!confirmDelete) {
+                return;
+            }
+
+            // Xóa sổ tiết kiệm
+            soTietKiemList.splice(index, 1);
+
+            // Hiển thị thông báo thành công
+            document.getElementById('message').textContent = 'Xóa sổ tiết kiệm thành công!';
+            document.getElementById('message').className = '';
+
+            // Reset form
+            document.getElementById('form-delete').reset();
+
+            // Hiển thị danh sách sổ tiết kiệm còn lại
+            document.getElementById('output').textContent = soTietKiemList.length ? soTietKiemList.map(stk => stk.toString()).join('\n\n') : 'Danh sách sổ tiết kiệm trống.';
+        });
+    </script>
+
+
+
+</body>
+</html>
